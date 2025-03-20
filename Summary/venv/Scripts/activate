@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="G:\My Drive\PENELITIAN DIPA\PENELITIAN 2025\Aplikasi\PaythonProject\PaythonProject\venv"
+VIRTUAL_ENV="D:\GITHUB\GIT_PROJECT\Summary\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

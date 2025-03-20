@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=G:\My Drive\PENELITIAN DIPA\PENELITIAN 2025\Aplikasi\PaythonProject\PaythonProject\venv
+set VIRTUAL_ENV=D:\GITHUB\GIT_PROJECT\Summary\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
