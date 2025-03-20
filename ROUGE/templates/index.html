@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluasi Ringkasan AI dengan ROUGE</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        textarea {
+            resize: none;
+        }
+        #graph {
+            display: none;
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary">Evaluasi Ringkasan AI</h2>
+        <p class="text-center text-muted">Masukkan ringkasan manual dan AI, lalu evaluasi menggunakan ROUGE METHOD</p>
+
+        <form id="summaryForm">
+            <div class="mb-3">
+                <label for="reference_summary" class="form-label">Ringkasan Manual Manusia</label>
+                <textarea id="reference_summary" name="reference_summary" class="form-control" rows="5" placeholder="Masukkan ringkasan manusia..."></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="generated_summary" class="form-label">Ringkasan Otomatis AI</label>
+                <textarea id="generated_summary" name="generated_summary" class="form-control" rows="5" placeholder="Masukkan ringkasan AI..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">HITUNG EVALUASI ROUGE</button>
+        </form>
+
+        <div id="resultContainer" class="mt-4" style="display: none;">
+            <h4 class="text-center">Hasil Evaluasi</h4>
+            <pre id="result" class="p-3 bg-light border rounded"></pre>
+            <img id="graph" class="img-fluid" alt="Grafik Evaluasi">
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#summaryForm").submit(function(event) {
+            event.preventDefault();
+            
+            // Tampilkan loading button
+            let button = $("button[type='submit']");
+            button.html("Menganalisis...").prop("disabled", true);
+            
+            $.ajax({
+                url: "/evaluate",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function(response) {
+                    // Tampilkan hasil evaluasi
+                    $("#result").text(JSON.stringify(response.scores, null, 2));
+                    $("#graph").attr("src", response.img_path).show();
+                    $("#resultContainer").fadeIn();
+                },
+                error: function() {
+                    alert("Terjadi kesalahan. Silakan coba lagi.");
+                },
+                complete: function() {
+                    // Kembalikan tombol ke kondisi semula
+                    button.html("Evaluasi").prop("disabled", false);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

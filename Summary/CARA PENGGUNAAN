@@ -1,0 +1,15 @@
+JALANKAN DI TERMINAL FOLDER CMD PYTHON
+1. python -m venv venv
+2. venv\Scripts\activate
+3. pip install -r requirements.txt
+4. python main.py
+LIHAT SAMPAI KELUAR:
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.66:5000
+
+
+
+-----------------------
+PASTIKAN TELAH MENGGANTI API KEY PADA ().env)
+GEMINI_API_KEY=AIzaSyCkNoBaQZh5SBsVHFSnm_ShChdq9UAgRQE
